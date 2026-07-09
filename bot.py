@@ -8,7 +8,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 # Token của Bot Telegram
-BOT_TOKEN = "8146489062:AAGBGPJYAWHLgxMbpGyTOyO1WQF1IVrZqdE"
+BOT_TOKEN = "8861715459:AAHbe-MYrVjv2VF1ZOTCNrrBnvxp1a7-1oA"
 
 bot = telebot.TeleBot(BOT_TOKEN)
 server = Flask(__name__)
