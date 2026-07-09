@@ -7,13 +7,8 @@ import telebot
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-# Lấy token từ biến môi trường
-BOT_TOKEN = os.environ.get('BOT_TOKEN')
-if not BOT_TOKEN:
-    logger.error("BOT_TOKEN is missing! Please configure BOT_TOKEN in environment variables.")
-    # Khi chạy cục bộ không có token thì không lỗi crash ngay để người dùng cấu hình sau
- 
-   BOT_TOKEN = "8146489062:AAGBGPJYAWHLgxMbpGyTOyO1WQF1IVrZqdE"
+# Token của Bot Telegram
+BOT_TOKEN = "8146489062:AAGBGPJYAWHLgxMbpGyTOyO1WQF1IVrZqdE"
 
 bot = telebot.TeleBot(BOT_TOKEN)
 server = Flask(__name__)
