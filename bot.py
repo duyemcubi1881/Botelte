@@ -12,7 +12,8 @@ BOT_TOKEN = os.environ.get('BOT_TOKEN')
 if not BOT_TOKEN:
     logger.error("BOT_TOKEN is missing! Please configure BOT_TOKEN in environment variables.")
     # Khi chạy cục bộ không có token thì không lỗi crash ngay để người dùng cấu hình sau
-    BOT_TOKEN = "DUMMY_TOKEN"
+ 
+   BOT_TOKEN = "8146489062:AAGBGPJYAWHLgxMbpGyTOyO1WQF1IVrZqdE"
 
 bot = telebot.TeleBot(BOT_TOKEN)
 server = Flask(__name__)
