@@ -59,30 +59,19 @@ def handle_private_message(message):
     add_link = f"https://t.me/{username}?startgroup=true"
     
     response_text = (
-        f"👋 **Xin chào!**\n\n"
+        f"👋 <b>Xin chào!</b>\n\n"
         f"Do chính sách bảo mật của Telegram, Bot không thể tự động tự tham gia vào nhóm qua link.\n\n"
         f"Tuy nhiên, bạn có thể thêm tôi vào nhóm cực kỳ dễ dàng bằng cách click vào link dưới đây:\n"
-        f"👉 [THÊM BOT VÀO NHÓM CỦA BẠN]({add_link})\n\n"
-        f"**Các bước cần làm sau đó:**\n"
+        f"👉 <a href=\"{add_link}\">THÊM BOT VÀO NHÓM CỦA BẠN</a>\n\n"
+        f"<b>Các bước cần làm sau đó:</b>\n"
         f"1. Chọn nhóm bạn muốn thêm Bot vào.\n"
-        f"2. Nâng cấp Bot lên làm **Quản trị viên (Admin)** của nhóm.\n"
-        f"3. Đảm bảo cấp quyền **Xóa tin nhắn (Delete messages)** để Bot hoạt động dọn dẹp tin nhắn hệ thống."
+        f"2. Nâng cấp Bot lên làm <b>Quản trị viên (Admin)</b> của nhóm.\n"
+        f"3. Đảm bảo cấp quyền <b>Xóa tin nhắn (Delete messages)</b> để Bot hoạt động dọn dẹp tin nhắn hệ thống."
     )
     try:
-        bot.reply_to(message, response_text, parse_mode="Markdown", disable_web_page_preview=True)
+        bot.reply_to(message, response_text, parse_mode="HTML", disable_web_page_preview=True)
     except Exception as e:
         logger.error(f"Lỗi khi gửi tin nhắn hỗ trợ trong chat riêng tư: {e}")
-
-
-# Tùy chọn: Xóa cả tin nhắn khi có người rời nhóm (nếu muốn, bạn có thể uncomment code dưới đây)
-# @bot.message_handler(content_types=['left_chat_member'])
-# def delete_leave_message(message):
-#     try:
-#         logger.info(f"Phát hiện thành viên rời nhóm trong chat {message.chat.id}. Tiến hành xóa tin nhắn hệ thống {message.message_id}...")
-#         bot.delete_message(message.chat.id, message.message_id)
-#         logger.info(f"Đã xóa thành công tin nhắn rời nhóm {message.message_id}.")
-#     except Exception as e:
-#         logger.error(f"Lỗi khi xóa tin nhắn rời nhóm: {e}")
 
 # Route trang chủ (dùng cho Health Check và tự động thiết lập Webhook)
 @server.route('/')
@@ -136,18 +125,14 @@ if BOT_TOKEN != "DUMMY_TOKEN":
             logger.error(f"Lỗi tự động thiết lập webhook tại startup: {e}")
 
 if __name__ == "__main__":
-    # Chạy cục bộ
-    # Nếu không có RENDER_EXTERNAL_URL, chạy bằng chế độ Long Polling để test
     if not os.environ.get('RENDER_EXTERNAL_URL'):
         if BOT_TOKEN == "DUMMY_TOKEN":
             logger.warning("Vui lòng đặt biến môi trường BOT_TOKEN để bot hoạt động.")
-            print("Cách chạy cục bộ: set BOT_TOKEN=your_token_here && python bot.py")
         else:
             logger.info("Không tìm thấy RENDER_EXTERNAL_URL. Đang chạy Bot ở chế độ Long Polling để test...")
             bot.remove_webhook()
             bot.infinity_polling()
     else:
-        # Chạy Flask Server trên Render
         port = int(os.environ.get('PORT', 5000))
         logger.info(f"Đang khởi chạy Flask server trên cổng {port}...")
         server.run(host="0.0.0.0", port=port)
